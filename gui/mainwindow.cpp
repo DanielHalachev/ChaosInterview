@@ -69,6 +69,11 @@ void MainWindow::on_startStopButton_clicked()
         });
     });
 
+    // below is an attempt to make a worker class
+    // in order to force the termination of the execution,
+    // if the window is closed using the X button
+    // but it didn't make a difference
+
     // this->worker = new LightParserWorker(this->selectedFilePath, this->ui->progressBar);
     // this->workerThread = new QThread();
 

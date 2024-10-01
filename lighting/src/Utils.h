@@ -2,7 +2,6 @@
 
 #include <algorithm>
 #include <cmath>
-#include <numbers>
 #include <vector>
 
 // const double MULTIPLIER = 100.0;
@@ -12,8 +11,6 @@ T toRadians(T degrees) {
 	degrees = degrees / T(180);
 	return degrees * M_PI;
 }
-
-// boost::multiprecision::mpfr_float_100 toRadians(boost::multiprecision::mpfr_float_100 degrees);
 
 template <typename T>
 T kahan(std::vector<T> &values) {
