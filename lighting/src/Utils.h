@@ -4,7 +4,7 @@
 #include <cmath>
 #include <vector>
 
-// const double MULTIPLIER = 100.0;
+// const double MULTIPLIER = 0.5;
 
 template <typename T>
 T toRadians(T degrees) {

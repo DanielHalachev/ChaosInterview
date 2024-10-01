@@ -23,10 +23,32 @@ struct Light {
 	[[nodiscard]] T contributionToPixel(const Vector<T> &point) const;
 };
 
+// first solution that I thought of
+// template <typename T>
+// T Light<T>::contributionToPixel(const Vector<T> &point) const {
+//     T theta =
+//         std::atan2(point[1] - this->position[1], point[0] - this->position[0]);
+//     Vector<T> distanceToLight = point - this->position;
+//     if(theta < 0){
+//         theta = 2*M_PIf + theta;
+//     }
+//     T absDiff = std::abs(theta - this->rotation);
+//     absDiff = std::min(absDiff, 2 * M_PIf - absDiff);
+//     if (absDiff <= this->halfSpread) {
+//         return this->intensity / distanceToLight.getSquareLength();
+//     }
+
+//     return 0;
+// }
+
+// second solution
 template <typename T>
 T Light<T>::contributionToPixel(const Vector<T> &point) const {
 	Vector<T> distanceToLight = point - this->position;
 	T squareDistance = distanceToLight.getSquareLength();
+	if(squareDistance == 0){
+		return 0;
+	}
 	// T squareDistance = point[0] * point[0] + point[1] * point[1] + this->position[0] * this->position[0] +
 	// 				   this->position[1] * this->position[1] - 2 * point[0] * this->position[0] -
 	// 2 * point[1] * this->position[1];
@@ -35,12 +57,7 @@ T Light<T>::contributionToPixel(const Vector<T> &point) const {
 	// }
 	distanceToLight.normalize();
 	T spotFactor = distanceToLight.dot(this->direction);
-	// T spotFactor = ((point / std::sqrt(squareDistance)).dot(this->direction)) -
-	// 			   ((this->position / std::sqrt(squareDistance)).dot(this->direction));
 	if (spotFactor >= this->halfSpreadCosine) {
-		// return this->intensity * (1.0 - (1.0 - spotFactor) * 1.0 / (1.0 - this->halfSpreadCosine)) / squareDistance;
-		// return this->intensity * std::clamp((spotFactor - T(1)) / (this->halfSpreadCosine - T(1)), T(0), T(1)) /
-		// 	   squareDistance;
 		// return MULTIPLIER * MULTIPLIER * this->intensity / squareDistance;
 		return this->intensity / squareDistance;
 	}

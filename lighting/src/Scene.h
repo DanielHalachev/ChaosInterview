@@ -9,7 +9,7 @@
 #include "BVH.h"
 #include "Light.h"
 #include "ThreadManager.h"
-#include "Utils.h"
+// #include "Utils.h"
 template <typename T>
 class Scene {
    private:
@@ -57,20 +57,21 @@ void Scene<T>::renderRectangle(std::vector<std::vector<T>> &result, unsigned int
 			Vector<T> pixel{static_cast<T>(col) / static_cast<T>(this->M),
 							static_cast<T>(row) / static_cast<T>(this->M)};
 
-			// pixel[0] = (T(2) * pixel[0]) - T(1);
+			// flip direction of y axis
+			// to use identical coordinate system
 			pixel[1] = T(1) - (pixel[1]);
 
 			// pixel[0] *= MULTIPLIER;
 			// pixel[1] *= MULTIPLIER;
 
-			std::vector<T> values;
-			values.reserve(this->lights.size());
+			// std::vector<T> values;
+			// values.reserve(this->lights.size());
 			for (auto &light : this->lights) {
-				values.push_back(light.contributionToPixel(pixel));
-				// contribution += light.contributionToPixel(pixel);
+				// values.push_back(light.contributionToPixel(pixel));
+				contribution += light.contributionToPixel(pixel);
 			}
 
-			contribution = kahan(values);
+			// contribution = kahan(values);
 
 			// result[row][col] = this->bvh.illuminate(pixel);
 			result[row][col] = contribution;
