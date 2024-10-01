@@ -1,5 +1,5 @@
 ---
-Checks:          'clang-diagnostic-*,clang-analyzer-*,google-*,bugprone-*,cppcoreguidelines-*,llvm-*,misc-*,modernize-*,performance-*,portability,concurrency-*,-modernize-use-trailing-return-type,-bugprone-easily-swappable-parameters,-misc-avoid-non-private-member-variables-in-classes,-cppcoreguidelines-pro-bounds-constant-array-index,-cppcoreguidelines-avoid-magic-numbers'
+Checks:          'clang-diagnostic-*,clang-analyzer-*,google-*,bugprone-*,cppcoreguidelines-*,llvm-*,misc-*,modernize-*,performance-*,portability,concurrency-*,-modernize-use-trailing-return-type,-bugprone-easily-swappable-parameters,-misc-avoid-non-private-member-variables-in-classes,-cppcoreguidelines-pro-bounds-constant-array-index,-cppcoreguidelines-avoid-magic-numbers,-google-runtime-int,-cppcoreguidelines-avoid-const-or-ref-data-members'
 WarningsAsErrors: ''
 HeaderFileExtensions:
   - ''
