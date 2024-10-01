@@ -1,5 +1,11 @@
 file(GLOB PRIVATE_HEADER_LIST CONFIGURE_DEPENDS "${ChaosInterview_SOURCE_DIR}/src/*.h")
 file(GLOB PUBLIC_HEADER_LIST CONFIGURE_DEPENDS "${ChaosInterview_SOURCE_DIR}/include/lighting/*.h")
-add_library(lighting Utils.cpp ${PUBLIC_HEADER_LIST})
-target_include_directories(lighting PUBLIC ../include)
-target_include_directories(lighting PRIVATE ../src)
+
+# Create an INTERFACE library for a header-only implementation
+add_library(lighting INTERFACE)
+
+# Specify include directories
+target_include_directories(lighting INTERFACE
+    $<BUILD_INTERFACE:${ChaosInterview_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>
+)
