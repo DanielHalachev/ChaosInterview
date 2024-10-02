@@ -33,6 +33,7 @@ std::vector<std::vector<T>> LightingParser<T>::parse(const std::filesystem::path
 	std::vector<std::vector<T>> result = std::move(scene.render(notifier));
 	std::ofstream outputFile(outputPath);
 	if (outputFile.is_open()) {
+		outputFile<<scene.resolution()<<"\n";
 		for (auto row = 0; row < scene.resolution(); row++) {
 			for (auto col = 0; col < scene.resolution(); col++) {
 				outputFile << std::fixed << std::setprecision(6) << result[row][col] << " ";

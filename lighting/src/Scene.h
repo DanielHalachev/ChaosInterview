@@ -6,7 +6,7 @@
 #include <vector>
 
 #include "../include/lighting/ProgressNotifier.h"
-#include "BVH.h"
+// #include "BVH.h"
 #include "Light.h"
 #include "ThreadManager.h"
 // #include "Utils.h"
@@ -53,27 +53,29 @@ void Scene<T>::renderRectangle(std::vector<std::vector<T>> &result, unsigned int
 	unsigned int columnLimit = std::min(this->M, columnIndex + width);
 	for (auto row = rowIndex; row < rowLimit; row++) {
 		for (auto col = columnIndex; col < columnLimit; col++) {
-			T contribution = 0;
 			Vector<T> pixel{static_cast<T>(col) / static_cast<T>(this->M),
 							static_cast<T>(row) / static_cast<T>(this->M)};
 
 			// flip direction of y axis
-			// to use identical coordinate system
+			// to use identical coordinate systems
 			pixel[1] = T(1) - (pixel[1]);
 
+			// experimented with changing the range of the coordinates
 			// pixel[0] *= MULTIPLIER;
 			// pixel[1] *= MULTIPLIER;
 
+			// experimented with Kahan summation
 			// std::vector<T> values;
 			// values.reserve(this->lights.size());
+			// for (auto &light : this->lights) {
+			// 	values.push_back(light.contributionToPixel(pixel));
+			// }
+			// result[row][col] = kahan(values);
+
+			T contribution = 0;
 			for (auto &light : this->lights) {
-				// values.push_back(light.contributionToPixel(pixel));
 				contribution += light.contributionToPixel(pixel);
 			}
-
-			// contribution = kahan(values);
-
-			// result[row][col] = this->bvh.illuminate(pixel);
 			result[row][col] = contribution;
 		}
 	}

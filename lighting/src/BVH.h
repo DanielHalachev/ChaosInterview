@@ -1,6 +1,7 @@
 #pragma once
 
 #include <array>
+#include <cmath>
 #include <numeric>
 #include <stack>
 #include <vector>
@@ -25,9 +26,9 @@ class BVH {
 		[[nodiscard]] bool isLeaf() const { return !this->indexes.empty(); }
 	};
 
-	static const unsigned short MAX_ELEMENTS_IN_LEAF = 16;
-	static const unsigned short MAX_DEPTH = 10;
-	static const unsigned short AXIS_COUNT = 2;
+	unsigned short MAX_ELEMENTS_IN_LEAF = 16;
+	unsigned short MAX_DEPTH = 20;
+	unsigned short AXIS_COUNT = 2;
 	std::vector<Node> nodes;
 	std::vector<BoundingBox<T>> boundingBoxes;
 	const std::vector<Light<T>> *container;
@@ -35,6 +36,7 @@ class BVH {
    public:
 	BVH() = default;
 	explicit BVH(const std::vector<Light<T>> &lights) {
+		// this->MAX_DEPTH = std::ceil(std::log2(static_cast<T>(lights.size()) / static_cast<T>(this->MAX_ELEMENTS_IN_LEAF)));
 		this->container = &lights;
 		this->boundingBoxes.reserve(lights.size());
 		for (auto &light : lights) {

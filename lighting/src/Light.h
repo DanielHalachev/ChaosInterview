@@ -1,6 +1,5 @@
 #pragma once
 
-#include <boost/math/special_functions.hpp>
 #include <cmath>
 #include <istream>
 
@@ -23,7 +22,7 @@ struct Light {
 	[[nodiscard]] T contributionToPixel(const Vector<T> &point) const;
 };
 
-// first solution that I thought of
+// initial first solution
 // template <typename T>
 // T Light<T>::contributionToPixel(const Vector<T> &point) const {
 //     T theta =
@@ -41,7 +40,7 @@ struct Light {
 //     return 0;
 // }
 
-// second solution
+// current solution
 template <typename T>
 T Light<T>::contributionToPixel(const Vector<T> &point) const {
 	Vector<T> distanceToLight = point - this->position;
@@ -49,6 +48,9 @@ T Light<T>::contributionToPixel(const Vector<T> &point) const {
 	if(squareDistance == 0){
 		return 0;
 	}
+	// experimented with reformulation of calculations
+	// to avoid floating point substraction errors
+	// of numbers with negligible difference
 	// T squareDistance = point[0] * point[0] + point[1] * point[1] + this->position[0] * this->position[0] +
 	// 				   this->position[1] * this->position[1] - 2 * point[0] * this->position[0] -
 	// 2 * point[1] * this->position[1];

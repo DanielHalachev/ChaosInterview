@@ -49,9 +49,6 @@ class ThreadManager {
 	}
 
    private:
-	// in C++, a thread can do only one job, there can't be new jobs added
-	// but we can define a thread's job as "constantly waiting for a new job"
-	// and fetch that new job from a queue
 	void threadProcess() {
 		while (true) {
 			std::unique_lock<std::mutex> lock(mutex);

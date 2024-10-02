@@ -88,7 +88,7 @@ class BoundingBox {
 	}
 
 	bool intersects(const BoundingBox &box) const {
-		for (auto i = 0; i < 3; i++) {
+		for (auto i = 0; i < 2; i++) {
 			bool notOverlapI = (this->minPoint[i] > box.maxPoint[i]) || (this->maxPoint[i] < box.minPoint[i]);
 			if (notOverlapI) {
 				return false;
